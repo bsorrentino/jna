@@ -454,6 +454,46 @@ public interface WinNT extends WinError, WinDef, WinBase, BaseTSD {
     }
 
     /**
+     * Specifies a set of privileges. <br>
+     * It is also used to indicate which, if any, privileges are held by a user or group requesting access to an object.
+     */
+    public static class PRIVILEGE_SET extends Structure {
+        public DWORD PrivilegeCount;
+        public DWORD Control;
+        public LUID_AND_ATTRIBUTES Privileges[];
+
+        @Override
+        protected List getFieldOrder() {
+            return Arrays.asList("PrivilegeCount", "Control", "Privileges");
+        }
+
+        public PRIVILEGE_SET() {
+            this(0);
+        }
+        /**
+         * @param nbOfPrivileges
+         *            Desired size of the Privileges array
+         */
+        public PRIVILEGE_SET(int nbOfPrivileges) {
+            PrivilegeCount = new DWORD(nbOfPrivileges);
+            if(nbOfPrivileges > 0) {
+                Privileges = new LUID_AND_ATTRIBUTES[nbOfPrivileges];
+            }
+        }
+
+        /** Initialize a TOKEN_PRIVILEGES instance from initialized memory. */
+        public PRIVILEGE_SET(Pointer p) {
+            super(p);
+            final int count = p.getInt(0);
+            PrivilegeCount = new DWORD(count);
+            if(count > 0) {
+                Privileges = new LUID_AND_ATTRIBUTES[count];
+            }
+            read();
+        }
+    }
+
+    /**
      * The TOKEN_PRIVILEGES structure contains information about a set of
      * privileges for an access token.
      */
@@ -2176,6 +2216,25 @@ public interface WinNT extends WinError, WinDef, WinBase, BaseTSD {
                 WinBase.OVERLAPPED overlapped);
     }
 
+
+    /**
+     * Defines the mapping of generic access rights to specific and standard access rights for an object
+     */
+    public static class GENERIC_MAPPING extends Structure {
+        public static class ByReference extends GENERIC_MAPPING implements Structure.ByReference {
+        }
+
+        public DWORD genericRead;
+        public DWORD genericWrite;
+        public DWORD genericExecute;
+        public DWORD genericAll;
+
+        @Override
+        protected List getFieldOrder() {
+            return Arrays.asList("genericRead", "genericWrite", "genericExecute", "genericAll");
+        }
+    }
+
     /**
      * Describes the relationship between the specified processor set. This structure is used with the
      * {@link Kernel32#GetLogicalProcessorInformation} function.
@@ -2388,5 +2447,96 @@ public interface WinNT extends WinError, WinDef, WinBase, BaseTSD {
          * The cache is for traces.
          */
         public static int CacheTrace = 3;
+    }
+
+    /**
+     * Indicates committed pages for which physical storage has been allocated, either in memory or in the paging file on disk.
+     */
+    int MEM_COMMIT = 0x1000;
+
+    /**
+     * Indicates free pages not accessible to the calling process and available to be allocated.
+     * For free pages, the information in the AllocationBase, AllocationProtect, Protect, and Type members is undefined.
+     */
+    int MEM_FREE = 0x10000;
+
+    /**
+     * Indicates reserved pages where a range of the process's virtual address space is reserved without any physical storage being allocated.
+     * For reserved pages, the information in the Protect member is undefined.
+     */
+    int MEM_RESERVE = 0x2000;
+
+    /**
+     * Indicates that the memory pages within the region are mapped into the view of an image section.
+     */
+    int MEM_IMAGE = 0x1000000;
+
+    /**
+     * Indicates that the memory pages within the region are mapped into the view of a section.
+     */
+    int MEM_MAPPED = 0x40000;
+
+    /**
+     * Indicates that the memory pages within the region are private (that is, not shared by other processes).
+     */
+    int MEM_PRIVATE = 0x20000;
+
+    public static class MEMORY_BASIC_INFORMATION extends Structure {
+
+        /**
+         * A pointer to the base address of the region of pages.
+         */
+        public Pointer baseAddress;
+
+        /**
+         * A pointer to the base address of a range of pages allocated by the VirtualAlloc function.
+         * The page pointed to by the BaseAddress member is contained within this allocation range.
+         */
+        public Pointer allocationBase;
+
+        /**
+         * The memory protection option when the region was initially allocated.
+         * This member can be one of the memory protection constants or 0 if the caller does not have access.
+         */
+        public DWORD allocationProtect;
+
+        /**
+         * The size of the region beginning at the base address in which all pages have identical attributes, in bytes.
+         */
+        public SIZE_T regionSize;
+
+        /**
+         * The state of the pages in the region.
+         * This member can be one of the following values:
+         *
+         * MEM_COMMIT,
+         * MEM_FREE,
+         * MEM_RESERVE.
+         */
+        public DWORD state;
+
+        /**
+         * The access protection of the pages in the region.
+         * This member is one of the values listed for the AllocationProtect member.
+         */
+        public DWORD protect;
+
+        /**
+         * The type of pages in the region.
+         * The following types are defined:
+         *
+         * MEM_IMAGE
+         * MEM_MAPPED
+         * MEM_PRIVATE
+         */
+        public DWORD type;
+
+        @Override
+        protected List getFieldOrder() {
+            return Arrays.asList(new String[]{
+                "baseAddress", "allocationBase", "allocationProtect",
+                "regionSize", "state", "protect", "type"
+            });
+        }
     }
 }

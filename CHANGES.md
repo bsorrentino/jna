@@ -1,13 +1,69 @@
-Next Release (4.0)
-==================
-
 NOTE: as of JNA 4.0, JNA is now dual-licensed under LGPL and ASL (see LICENSE).
 
 NOTE: JNI native support is typically incompatible between minor versions, and almost always incompatible between major versions.
 
+Next Release
+============
+
 Features
 --------
-* [#241](https://github.com/twall/jna/issues/241) - Added  `com.sun.jna.platform.win32.Shell32.SHAppBarMessage` - [@bsorrentino](https://github.com/bsorrentino).
+* Updated AIX natives and build - [@twall](https://github.com/twall).
+* [#290](https://github.com/twall/jna/pull/290): Improved the stacktrace for the exceptions thrown by `com.sun.jna.Structure` - [@ebourg](https://github.com/ebourg).
+* [#332](https://github.com/twall/jna/pull/332): Added Win32 Monitor Configuration API in `com.sun.jna.platform.win32.Dxva2` - [@msteiger](https://github.com/msteiger).
+* Added Winspool monitor sample and updated Kernel32, WinBase, Winspool - [@wolftobias](https://github.com/wolftobias).
+* [#333](https://github.com/twall/jna/pull/333): Added `CoTaskMemAlloc`, `CoTaskMemRealloc` and `CoTaskMemFree` to `com.sun.jna.platform.win32.Ole32` - [@msteiger](https://github.com/msteiger).
+* [#334](https://github.com/twall/jna/pull/334): Added `com.sun.jna.platform.win32.Shell32.SHGetKnownFolderPath` and `KnownFolders` GUID constants - [@msteiger](https://github.com/msteiger).
+* [#338](https://github.com/twall/jna/pull/338): Added `com.sun.jna.platform.mac.XAttr` and `com.sun.jna.platform.mac.XAttrUtil` JNA wrapper for `<sys/xattr.h>` for Mac OS X - [@rednoah](https://github.com/rednoah).
+* [#339](https://github.com/twall/jna/pull/339): Added `GetWindowPlacement`, `SetWindowPlacement`, `AdjustWindowRect`, `AdjustWindowRectEx`, `ExitWindowsEx`, and `LockWorkstation` to `com.sun.jna.platform.win32.User32` - [@Timeroot](https://github.com/Timeroot).
+* [#286](https://github.com/twall/jna/pull/286): Added in com.sun.jna.platform.win32.Kernel32: CreateRemoteThread, WritePocessMemory and ReadProcessMemory - [@sstokic-tgm](https://github.com/sstokic-tgm).
+* [#350](https://github.com/twall/jna/pull/350): Added `jnacontrib.x11.api.X.Window.getSubwindows` - [@rm5248](https://github.com/rm5248).
+* Improved `contrib/msoffice` sample - [@wolftobias](https://github.com/wolftobias).
+* [#352](https://github.com/twall/jna/pull/352): Performance improvements due to reduced locking in `com.sun.jna.Library$Handler` and fewer vararg checks in `com.sun.jna.Function` - [@Boereck](https://github.com/Boereck).
+* [#357](https://github.com/twall/jna/pull/357): Added `com.sun.jna.platform.win32.Kernel32.SetSystemTime` - [@lgoldstein](https://github.com/lgoldstein), [@thomasjoulin](https://github.com/thomasjoulin).
+* [#365](https://github.com/twall/jna/pull/365): Added `com.sun.jna.platform.win32.Kernel32.GetComputerNameEx` support - [@lgoldstein](https://github.com/lgoldstein).
+* [#368](https://github.com/twall/jna/pull/368): Added `com.sun.jna.platform.win32.Kernel32.VirtualQueryEx`, `com.sun.jna.platform.win32.WinNT.MEMORY_BASIC_INFORMATION` and `MEM_COMMIT`, `MEM_FREE`, `MEM_RESERVE`, `MEM_IMAGE`, `MEM_MAPPED`, `MEM_PRIVATE` constants to `com.sun.jna.platform.win32.WinNT` - [@apsk](https://github.com/apsk).
+
+Bug Fixes
+---------
+* [#319](https://github.com/twall/jna/pull/319): Fix direct-mapping type-mapped pointer result types - [@marco2357](https://github.com/marco2357).
+* [#350](https://github.com/twall/jna/pull/350): Fix `jnacontrib.x11.api.X.Window.getXXXProperty`, returns `null` if the window property is not found - [@rm5248](https://github.com/rm5248).
+* Fixed `com.sun.jna.platform.win32.Variant` and `TlbImp` - [@wolftobias](https://github.com/wolftobias).
+* Fixed `com.sun.jna.Pointer.getWideStringArray` not respecting the length parameter - [@csoren](https://github.com/csoren).
+* Fix missing code in X11 demos - [@twall](https://github.com/twall).
+* Fix compiler warnings OSX - [@twall](https://github.com/twall).
+* Remove unsupported JAWT from OSX build - [@twall](https://github.com/twall).
+* Disable WebStart tests - [@twall](https://github.com/twall).
+
+Release 4.1
+===========
+
+Features
+--------
+* Added `com.sun.jna.platform.win32.Advapi32Util.registryCloseKey` - [@falldog](https://github.com/falldog).
+* Enabled platform tests to be run w/o building native bits - [@twall](https://github.com/twall).
+* Added COM/Typelib java code generator `com.sun.jna.platform.win32.COM.tlb.TlbImp` - [@wolftobias](https://github.com/wolftobias).
+* [#226](https://github.com/twall/jna/issues/226): Added OSGI information to jna-platform.jar - [@brettwooldridge](https://github.com/brettwooldridge).
+* [#267](https://github.com/twall/jna/pull/267): Added support for Windows RAS32 API, `com.sun.jna.platform.win32.Rasapi32` and `Rasapi32Util` - [@kc7bfi](https://github.com/kc7bfi).
+* [#101](https://github.com/twall/jna/issues/101): Modify `com.sun.jna.platform.win32.Advapi32Util.registryGet*` API to support `KEY_WOW64` option - [@falldog](https://github.com/falldog).
+* [#271](https://github.com/twall/jna/pull/271): Added `com.sun.jna.platform.win32.Gdi32.ChoosePixelFormat` and `SetPixelFormat` - [@kc7bfi](https://github.com/kc7bfi).
+* [#271](https://github.com/twall/jna/pull/271): Added `com.sun.jna.platform.win32.OpenGL32`, `OpenGL32Util` and `WinOpenGL` - [@kc7bfi](https://github.com/kc7bfi).
+* [#250](https://github.com/twall/jna/pull/250): Added `com.sun.jna.platform.win32.Kernel32.GetPrivateProfileSection`, `GetPrivateProfileSectionNames` and `WritePrivateProfileSection` and corresponding `Kernel32Util` helpers - [@quipsy-karg](https://github.com/quipsy-karg).
+* [#287](https://github.com/twall/jna/pull/287): Added `DBTF_MEDIA` and `DBTF_NET` to `com.sun.jna.platform.win32.DBT` - [@daifei4321](https://github.com/daifei4321).
+* [#295](https://github.com/twall/jna/pull/295): Added `com.sun.jna.platform.win32.Kernel32.ResetEvent` - [@manithree](https://github.com/manithree).
+* [#301](https://github.com/twall/jna/pull/301): Added `accessCheck` to `com.sun.jna.platform.win32.Advapi32Util`, `MapGenericMask` and `AccessCheck` to `com.sun.jna.platform.win32.Advapi32`, `PRIVILEGE_SET` and `GENERIC_MAPPING` to `com.sun.jna.platform.win32.WinNT` - [@BusyByte](https://github.com/BusyByte).
+
+Bug Fixes
+---------
+* Fixed inconsistent behavior on `Structure.ByValue` fields within a `Structure` - [@twall](https://github.com/twall).
+* [#279](https://github.com/twall/jna/issues/279): Accommodate FreeBSD libc loading - [@sevan](https://github.com/sevan).
+* [#287](https://github.com/twall/jna/pull/287): Fixed contrib `win32.Win32WindowDemo`, now showing the added/removed drive letter, and whether the event is about media in drive or physical drive - [@daifei4321](https://github.com/daifei4321).
+* [#300](https://github.com/twall/jna/issues/300): Fix stdcall argument alignment - [@twall](https://github.com/twall).
+
+Release 4.0
+===========
+
+Features
+--------
 * Added ASL licensing to facilitate distribution - [@twall](https://github.com/twall).
 * [#109](https://github.com/twall/jna/issues/109): Set default Java compatibility level to 1.6 - [@twall](https://github.com/twall).
 * [#209](https://github.com/twall/jna/issues/209): Improved default performance saving last error results - [@twall](https://github.com/twall).
@@ -22,6 +78,9 @@ Features
 * Added `jna.debug_load` property to diagnose library loading issues - [@twall](https://github.com/twall).
 * Throw explicit `IllegalArgumentException` when `Structure.ByReference` is used where it shouldn't be (can result in multiply freed memory or other unexpected behavior) - [@twall](https://github.com/twall).
 * [#243](https://github.com/twall/jna/issues/243): Automatically accommodate long library paths on Windows which would otherwise fail - [@twall](https://github.com/twall).
+* [#241](https://github.com/twall/jna/issues/241) - Added  `com.sun.jna.platform.win32.Shell32.SHAppBarMessage` - [@bsorrentino](https://github.com/bsorrentino).
+* Make `Structure.read/writeField()` protected to facilitate per-field overrides - [@twall](https://github.com/twall).
+* Speed up callback lookup where large numbers of native function pointers are in use - [@twall](https://github.com/twall).
 
 Bug Fixes
 ---------
@@ -134,7 +193,7 @@ Bug Fixes
 * Fix runtime error in some instances where Structure.setFieldOrder is used (never return self when sharing AutoAllocated memory).
 * [#107](https://github.com/twall/jna/issues/107): `Structure.clear()` always calls `ensureAllocated()` to avoid NPE.
 * Ensure internal memory pointer is *always* allocated when calling `Structure.useMemory()`, even if layout is not yet determined.
- 
+
 Release 3.4.1
 =============
 
@@ -170,7 +229,7 @@ threads.
 * linux/arm 32-bit support (hardware provided by Alex Lam).
 * linux/ppc 32-bit support (hardware provided by Fritiof Hedman).
 * Preliminary linux/ia64, linux/ppc64 support (thanks to Laurent Guerby and the GCC compile farm).
-* Windows CE/Mobile support (w32ce-arm) (resources provided by andrea antonello and Hydrologis SRL).  
+* Windows CE/Mobile support (w32ce-arm) (resources provided by andrea antonello and Hydrologis SRL).
 * linux multi-arch support (kohsuke).
 * Added REG_QWORD registry type support
 * Add to `platform.unix.x11`: `XGrabKey`, `XUngrabKey`, `XSetErrorHandler`.
@@ -319,7 +378,7 @@ Bug Fixes
 
 * Fix WindowUtils exception on mouse over TrayIcon.
 * Fix bug toggling windows transparent/opaque (win32/OSX).
-* Avoid overwriting unchanged Pointer values in arrays (function calls with Pointer[] and Structure.read). 
+* Avoid overwriting unchanged Pointer values in arrays (function calls with Pointer[] and Structure.read).
 * Ensure Structure fields marked `final` are never written.
 * Fix bug preventing proper population Structure.ByReference fields on Structure read.
 * Ensure double buffering is disabled in components added to a transparent window.
@@ -339,7 +398,7 @@ Bug Fixes
 ---------
 
 * Fix crash with direct mapping if NULL struct* used (Issue 125).
-* Fix case where null-valued Structure fields would get non-null values on write. 
+* Fix case where null-valued Structure fields would get non-null values on write.
 * Synch callback Structure/Structure[] arguments on callback return.
 * Fix NPE when mapping an interface to the current process.
 * Automatically load proper C library version from current process on Linux (avoids crashing bug on Ubuntu with libc-i686 packages active).
@@ -369,7 +428,7 @@ Features
 
 * Handle String, Structure, Callback, Buffer, and primitive arrays in direct mappings.  Handle NativeMapped and TypeMapper, with optimized paths for IntegerType and PointerType.
 * Optionally throw errno/GetLastError as an exception.  This is preferred to (and more efficient than) calling Native.getLastError().
-* Unload/delete native library unpacked from jna.jar if Native class is garbage collected.  Only install shutdown hook if using the system class loader. 
+* Unload/delete native library unpacked from jna.jar if Native class is garbage collected.  Only install shutdown hook if using the system class loader.
 * Auto-write contiguous Structure arrays when first element is written.
 * Support NativeMapped[] as function arguments for interface-mapped libraries (Issue 90).
 * Enable function lookup within current process on Windows.
@@ -387,7 +446,7 @@ Release 3.1.0
 Features
 --------
 
-* Add raw JNI mapping of static Java methods.  Performance is about 10X that of traditional JNA interface mapping, although with less type conversion functionality. 
+* Add raw JNI mapping of static Java methods.  Performance is about 10X that of traditional JNA interface mapping, although with less type conversion functionality.
 * Add library option to allow passing/return of Java Objects.
 * Allow handling of uncaught callback exceptions (Issue 63).
 * Object oriented interface to X server (see contrib/x11)
@@ -401,7 +460,7 @@ Features
 Bug Fixes
 ---------
 
-* Run tests with libjsig.so, if available, which fixes some crashes when running tests on 64-bit platforms. 
+* Run tests with libjsig.so, if available, which fixes some crashes when running tests on 64-bit platforms.
 * Fix Issue 104.
 * Fix Issue 94 (Java 1.6 update 10 regression).
 * Fix Issue 51 (Java 1.6 update 10 regression).
@@ -462,7 +521,7 @@ Bug Fixes
 * Avoid overwriting unchanged Structure fields of type Pointer.
 * Avoid more content dragging on OSX or warn if it's too late.
 * Fix UnsatisfiedLinkError using transparent window on Win2K.
-* Fix memory leak with callbacks called from native threads with no Java context (johnwallace).  
+* Fix memory leak with callbacks called from native threads with no Java context (johnwallace).
 * Defer structure size calculation if type mapper not yet set, allowing type mapper to be set in derived constructors (colinwalters).
 * Ensure structure memory is allocated in Structure.read/writeField.
 
@@ -519,7 +578,7 @@ Features
 
 * Enable build/run using IBM's J9 VM (leonardo).
 * Make StdCallFunctionMapper attempt a leading underscore if the simpler mapping doesn't work.
-* Allow Structure.read to overwrite final fields (may not work on some 1.4 VMs). 
+* Allow Structure.read to overwrite final fields (may not work on some 1.4 VMs).
 
 Bug Fixes
 ---------
@@ -533,7 +592,7 @@ Bug Fixes
 * Fix callback allocation code on w32, solaris, freebsd, darwin (libffi was misconfigured).
 * Fix bug when NativeMapped fields are used in a Structure.ByValue instance.
 * Fix NPE calling Structure.read() before memory is initialized.
-* Fix NPE calling Structure.read/write with uninitialized NativeMapped fields. 
+* Fix NPE calling Structure.read/write with uninitialized NativeMapped fields.
 
 Release 3.0.2
 =============
@@ -580,7 +639,7 @@ Features
 * More supported platforms, via GCC's libffi (wmeissner)
 * Support struct by value as parameter and return value (duncan)
 * Support struct by reference within structures
-* Provide access to native peer for java.awt.Component 
+* Provide access to native peer for java.awt.Component
 * Provide access to native peer on OS X.
 * Support MINGW32 builds (fullung)
 * Allow per-field Structure read/write by field name
@@ -595,7 +654,7 @@ Features
 * Support lookup of OSX framework libraries by name
 * Explicit access to shared library global data
 * Invocation interception to facilitate translation of C preprocessor macros and inline functions
-* Provide utility to determine Web Start native library cache location; auto-include this path if jnidispatch is included as a &lt;nativelib&gt; (robertengels) 
+* Provide utility to determine Web Start native library cache location; auto-include this path if jnidispatch is included as a &lt;nativelib&gt; (robertengels)
 * Provide access to aligned memory
 * Versioning information embedded in jna.jar and native library
 
@@ -628,7 +687,7 @@ Features
 * Optimized shaped windows (chris deckers & olivier chafik); instantiation time improved by about 2-3 orders of magnitude for large, mostly contiguous shapes
 * Provide type mapping in callback arguments/results
 * Provide access to ByteBuffer direct address as a Pointer
-* Provide customization of native string encoding with jna.encoding system property 
+* Provide customization of native string encoding with jna.encoding system property
 
 Bug Fixes
 ---------
@@ -654,7 +713,7 @@ Features
 * Automatic handling of w32 UNICODE/ASCII variants
 * Automatic mapping of decorated w32 stdcall function names
 * Customizable, automatic type conversion of arguments and results (wmeissner)
-* Support char*[] arguments as Java String[] 
+* Support char*[] arguments as Java String[]
 * Structure supports Callback members (wmeissner)
 * getByteBuffer from Pointer/Memory (wmeissner)
 * Allow GC of native libraries
@@ -674,3 +733,4 @@ Bug Fixes
 * Properly handle NULL when the return value is a Structure
 * Proper conversion to wchar_t on linux
 * Copy full length of Java strings to C strings instead of stopping when a NUL character is encountered
+

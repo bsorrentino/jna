@@ -28,7 +28,7 @@ public class NativeTest extends TestCase {
     private static final String UNICODE = "[\u0444]";
 
     public void testLongStringGeneration() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         final int MAX = Platform.isWindowsCE() ? 200000 : 2000000;
         for (int i=0;i < MAX;i++) {
             buf.append('a');
@@ -410,7 +410,7 @@ public class NativeTest extends TestCase {
             for (int i=0;i < args.length;i++) {
                 System.out.println("Running tests on class " + args[i]);
                 try {
-                    junit.textui.TestRunner.run(Class.forName(args[i]));
+                    junit.textui.TestRunner.run((Class<? extends TestCase>) Class.forName(args[i]));
                 }
                 catch(Throwable e) {
                     e.printStackTrace();

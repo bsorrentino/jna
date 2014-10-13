@@ -162,12 +162,8 @@ endif
 
 ifeq ($(OS),win32)
 ARCH=$(shell uname -m | sed 's/i.86/i386/g')
-ifeq ($(ARCH),amd64)
-# To build entirely with mingw64, comment out this line (default is MSVC)
+ifdef $(MSVC)
 USE_MSVC=true
-else
-# To build 32-bit under MSVC, un-comment this line (default is gcc)
-#USE_MSVC=true
 endif
 
 CDEFINES=-DHAVE_PROTECTION -DPSAPI_VERSION=1 -DFFI_BUILDING -DUNICODE -D_UNICODE
@@ -352,7 +348,8 @@ endif
 endif
 
 PCFLAGS+=$(ISYSROOT) -x objective-c
-CDEFINES+=-DTARGET_RT_MAC_CFM=0 -DFFI_MMAP_EXEC_WRIT
+# JAWT no longer supported on OSX
+CDEFINES+=-DTARGET_RT_MAC_CFM=0 -DFFI_MMAP_EXEC_WRIT -DNO_JAWT
 LDFLAGS=$(ARCHFLAGS) -dynamiclib -o $@ -framework JavaVM \
   -compatibility_version $(shell echo ${JNA_JNI_VERSION}|sed 's/^\([0-9][0-9]*\).*/\1/g') \
   -current_version $(JNA_JNI_VERSION) \
